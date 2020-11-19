@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_18_210600) do
+ActiveRecord::Schema.define(version: 2020_11_19_205156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "monsters", force: :cascade do |t|
+    t.string "name"
+    t.string "size"
+    t.string "mon_type"
+    t.string "alignment"
+    t.string "hit_dice"
+    t.string "languages"
+    t.string "damage_vulnerable", default: [], array: true
+    t.string "damage_resist", default: [], array: true
+    t.string "damage_immune", default: [], array: true
+    t.string "condition_immune", default: [], array: true
+    t.string "speed", default: [], array: true
+    t.string "senses", default: [], array: true
+    t.integer "armor_class"
+    t.integer "hit_points"
+    t.integer "strength"
+    t.integer "dexterity"
+    t.integer "constitution"
+    t.integer "intelligence"
+    t.integer "wisdom"
+    t.integer "charisma"
+    t.integer "challenge_rating"
+    t.integer "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
