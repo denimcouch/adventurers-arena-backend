@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
     def show_alt
         user = User.where({username: params[:username]})
-        render json: user
+        render json: user, only: [:id, :username, :password]
     end
 
     def show
@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
     def create
         user = User.create!(user_params)
         if user.valid?
-            render json: user, status: :created
+            render json: user, only: [:id, :username, :password], status: :created
         else
             render json: {error: 'failed to create user'}, status: :not_acceptable
         end
