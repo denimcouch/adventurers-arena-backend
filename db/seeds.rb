@@ -19,17 +19,18 @@ monster_index_array = JSON.parse(monster_index)
 # monster_index_array is an address sheet.
 # it is used to visit a specific monster"s endpoint
 monster_index_array["results"].each do |monster_index|
+
     monster_data = RestClient.get "https://www.dnd5eapi.co#{monster_index["url"]}"
     monster = JSON.parse(monster_data)
 
-    #manipulate speed, senses, and conditon_immunities data into arrays
+    # manipulate speed, senses, and conditon_immunities data into arrays
     speed = monster["speed"].to_a.map{ | element | element.join(": ")}
-    senses = monster["senses"].to_a.map{ | e | e.join(": ") }
-    c_immunes = monster["condition_immunities"].collect{ |condition| condition["name"] }
+    senses = monster["senses"].to_a.map{ | element | element.join(": ") }
+    c_immunes = monster["condition_immunities"].collect{ | condition | condition["name"] }
     
-    #create new instance of Monster
+    # create new instance of Monster
     new_monster = Monster.create!(
-        name: monster["name"],
+        name: monster["name"],code
         size: monster["size"],
         mon_type: monster["type"],
         alignment: monster["alignment"],

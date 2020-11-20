@@ -1,7 +1,7 @@
 class Api::V1::MonstersController < ApplicationController
 
     def index
-        monsters = Monster.all
+        monsters = Monster.all.sort
         render json: monsters
     end
 
