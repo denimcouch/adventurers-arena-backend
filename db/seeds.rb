@@ -10,8 +10,13 @@ require "rest-client"
 
 User.destroy_all
 Monster.destroy_all
+Encounter.destroy_all
+EncounterMonster.destroy_all
 
 alex = User.create(username: "denimcouch", email: "alexmata92@ymail.com", password: "password")
+
+kobolds = Encounter.create(name:"Kobold Fight", user_id: alex.id)
+
 
 monster_index = RestClient.get "https://www.dnd5eapi.co/api/monsters"
 monster_index_array = JSON.parse(monster_index)
@@ -30,7 +35,7 @@ monster_index_array["results"].each do |monster_index|
     
     # create new instance of Monster
     new_monster = Monster.create!(
-        name: monster["name"],code
+        name: monster["name"],
         size: monster["size"],
         mon_type: monster["type"],
         alignment: monster["alignment"],
@@ -55,5 +60,9 @@ monster_index_array["results"].each do |monster_index|
     )
 # byebug
 end
+
+em1 = EncounterMonster.create(monster_id: Monster.all.sample.id, encounter_id: kobolds.id)
+em2 = EncounterMonster.create(monster_id: Monster.all.sample.id, encounter_id: kobolds.id)
+em3 = EncounterMonster.create(monster_id: Monster.all.sample.id, encounter_id: kobolds.id)
 
 puts "Monsters are seeded!"
