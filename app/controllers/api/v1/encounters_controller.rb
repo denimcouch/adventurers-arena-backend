@@ -19,8 +19,15 @@ class Api::V1::EncountersController < ApplicationController
         render json: user, include: {encounters: { include: {monsters: {}}}}, except: [:email, :created_at, :updated_at]
     end
 
-    def patch
-        
+    def update
+        encounter = Encounter.find(params[:id])
+        en_mons = encounter.encounter_monsters
+        en_mons.destroy_all
+        params[:encounter][:monsters].each do |mon_id|
+            EncounterMonster.create(encounter_id: encounter.id, monster_id: mon_id)
+        end
+        user = User.find(encounter.user_id)
+        render json: user, include: {encounters: { include: {monsters: {}}}}, except: [:email, :created_at, :updated_at]
     end
 
     def destroy
