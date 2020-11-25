@@ -31,10 +31,8 @@ class Api::V1::EncountersController < ApplicationController
     end
 
     def destroy
-        # byebug
         encounter = Encounter.find(params[:id])
         user = User.find(encounter.user_id)
-        # byebug
         encounter_monsters = EncounterMonster.all.select{ |en_mon| en_mon.encounter_id == encounter.id}
         encounter_monsters.map{|en_mon| en_mon.destroy}
         encounter.destroy
