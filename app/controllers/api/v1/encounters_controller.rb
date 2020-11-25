@@ -6,9 +6,7 @@ class Api::V1::EncountersController < ApplicationController
     end
 
     def create
-        byebug
         encounter = Encounter.create!(name: params[:encounter][:name], user_id: params[:user_id])
-        byebug
         params[:encounter][:monsters].each do |mon_id|
             EncounterMonster.create(encounter_id: encounter.id, monster_id: mon_id)
         end

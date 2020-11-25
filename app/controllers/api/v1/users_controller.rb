@@ -7,19 +7,17 @@ class Api::V1::UsersController < ApplicationController
 
     def show_alt
         user = User.where({username: params[:username]})
-        render json: user, only: [:id, :username, :password]
+        render json: user, include: {encounters: { include: {monsters: {}}}}, except: [:email]
     end
 
     def show
         user = User.find(params[:id])
-        render json: user
-    end
+        render json: user, include: {encounters: { include: {monsters: {}}}}, except: [:email]    end
 
     def create
         user = User.create!(user_params)
         if user.valid?
-            render json: user, only: [:id, :username, :password], status: :created
-        else
+            render json: user, include: {encounters: { include: {monsters: {}}}}, except: [:email]        else
             render json: {error: 'failed to create user'}, status: :not_acceptable
         end
     end
