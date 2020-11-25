@@ -58,7 +58,6 @@ monster_index_array["results"].each do |monster_index|
         challenge_rating: monster["challenge_rating"],
         exp: monster["xp"]
     )
-# byebug
 end
 
 em1 = EncounterMonster.create(monster_id: Monster.all.sample.id, encounter_id: kobolds.id)
